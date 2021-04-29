@@ -16,8 +16,9 @@ public class ProcessingClass {
 		
 	}
 	//만나이 계산 함수
-	public int calcAge(String customerIDNumber) throws ParseException {
+	public int calcAge(String customerIDNumber, VariableValueClass value) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
+		
 		int customerYear = Integer.parseInt(customerIDNumber.substring(0, 2)); 
 		Date customerDate = sdf.parse(customerIDNumber.substring(2));
 		int todayYear = cal.get(Calendar.YEAR);
@@ -31,11 +32,11 @@ public class ProcessingClass {
 		
 		int compare = customerDate.compareTo(todayDate);
 		if (compare >= 0) {
-			VariableValueClass.age = todayYear - customerYear - 1;
+			value.age = todayYear - customerYear - 1;
 		} else {
-			VariableValueClass.age = todayYear - customerYear;
+			value.age = todayYear - customerYear;
 		}
-		return VariableValueClass.age;
+		return value.age;
 	}
 	//연령대별 분류
 	public int calcAgeGroup(int age) {
@@ -114,17 +115,17 @@ public class ProcessingClass {
 		return calcPrice;
 	}
 	//주문개수에 따른 최종금액 계산
-	public int calcResultPrice(int calcPrice, int ticketCount) {
-		VariableValueClass.resultPrice = calcPrice * ticketCount;
-		output.printResultPrice(VariableValueClass.resultPrice);
-		return VariableValueClass.resultPrice;
+	public int calcResultPrice(VariableValueClass value, int calcPrice, int ticketCount) {
+		value.resultPrice = calcPrice * ticketCount;
+		output.printResultPrice(value.resultPrice);
+		return value.resultPrice;
 	}
 	
-	public void saveOrderList(ArrayList<String> orderList) {
-		orderList.add(output.printTicketSelect(VariableValueClass.ticketSelect));
-		orderList.add(output.printAgeGroup(VariableValueClass.age));
-		orderList.add(String.format("X  %2d", VariableValueClass.ticketCount));
-		orderList.add(String.format("%d", VariableValueClass.resultPrice));
-		orderList.add(output.printDiscountType(VariableValueClass.discountSelect));
+	public void saveOrderList(VariableValueClass value, ArrayList<String> orderList) {
+		orderList.add(output.printTicketSelect(value.ticketSelect));
+		orderList.add(output.printAgeGroup(value.age));
+		orderList.add(String.format("X  %2d", value.ticketCount));
+		orderList.add(String.format("%d", value.resultPrice));
+		orderList.add(output.printDiscountType(value.discountSelect));
 	}
 }

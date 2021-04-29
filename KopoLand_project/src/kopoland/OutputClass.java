@@ -44,7 +44,7 @@ public class OutputClass {
 	
 	public String printDiscountType(int discountselect) {
 		String discountType = "";
-		switch(VariableValueClass.discountSelect) {
+		switch(discountselect) {
 		case 1 : 
 			discountType = "*우대적용 없음";
 			break;

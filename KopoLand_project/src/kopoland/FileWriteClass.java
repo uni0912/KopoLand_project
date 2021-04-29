@@ -40,16 +40,16 @@ public class FileWriteClass {
 		}		
 	}
 	
-	public void dataWrite(OutputClass out) throws IOException {
+	public void dataWrite(OutputClass out, VariableValueClass value) throws IOException {
 		Calendar c = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 		
 		String result = sdf.format(c.getTime()) + "," 
-				+ out.printTicketSelect(VariableValueClass.ticketSelect) + ","
-				+ out.printAgeGroup(VariableValueClass.age) + ","
-				+ VariableValueClass.ticketCount + ","
-				+ VariableValueClass.resultPrice + ","
-				+ out.printDiscountType(VariableValueClass.discountSelect) + "\n";
+				+ out.printTicketSelect(value.ticketSelect) + ","
+				+ out.printAgeGroup(value.age) + ","
+				+ value.ticketCount + ","
+				+ value.resultPrice + ","
+				+ out.printDiscountType(value.discountSelect) + "\n";
 						
 		fw.write(result);
 	}	
