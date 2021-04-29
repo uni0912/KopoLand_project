@@ -12,7 +12,6 @@ public class KopoMain {
 		OutputClass out;
 		ArrayList<String> orderList;
 		int totalPrice;
-		VariableValueClass value = new VariableValueClass();
 		FileWriteClass fwc = new FileWriteClass();
 		fwc.headerWrite();
 		
@@ -24,27 +23,27 @@ public class KopoMain {
 			totalPrice = 0;
 			while (true) {
 
-				input.inputAll(value);
+				input.inputAll();
 
-				pc.calcAge(value.customerIDNumber, value);
-				pc.calcAgeGroup(value.age);
-				int calcPrice = pc.calcPriceProcess(value.ticketSelect, value.age);
-				calcPrice = pc.calcDiscount(calcPrice, value.discountSelect);
-				value.resultPrice = pc.calcResultPrice(value, calcPrice, value.ticketCount);
+				pc.calcAge(VariableValueClass.customerIDNumber);
+				pc.calcAgeGroup(VariableValueClass.age);
+				int calcPrice = pc.calcPriceProcess(VariableValueClass.ticketSelect, VariableValueClass.age);
+				calcPrice = pc.calcDiscount(calcPrice, VariableValueClass.discountSelect);
+				VariableValueClass.resultPrice = pc.calcResultPrice(calcPrice, VariableValueClass.ticketCount);
 				
-				fwc.dataWrite(out, value);
+				fwc.dataWrite(out);
 				
-				totalPrice += value.resultPrice;
-				pc.saveOrderList(value, orderList);
-				input.inputOrderContinue(value);
-				if (value.orderContinue == 2) {
+				totalPrice += VariableValueClass.resultPrice;
+				pc.saveOrderList(orderList);
+				input.inputOrderContinue();
+				if (VariableValueClass.orderContinue == 2) {
 					break;
 				}
 			}
 			out.printResultReport(orderList, totalPrice);
-			input.inputProgram(value);
+			input.inputProgram();
 
-		} while (value.programSelect != 2);
+		} while (VariableValueClass.programSelect != 2);
 		fwc.fileClose();
 	}
 }
